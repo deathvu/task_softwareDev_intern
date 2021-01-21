@@ -15,9 +15,16 @@ def traversal(path, level=1):
         if [x for x in os.listdir(path) if os.path.isdir(os.path.join(path, x))] != ['ft_reference', 'ft_run']: # check if are the ft_reference and ft_run in test directories 
             with open(path+"/"+"report.txt", "a") as rep:
                 rep.write('directory missing: '+' '.join([x for x in ['ft_reference','ft_run'] if x not in os.listdir(path)])+'\n')
-                return 
+                return 0
+
         else:
-            
+            if os.listdir(path+'/ft_reference') != os.listdir(path+'/ft_run'):
+               # if len(list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path+'/ft_run')))) != 0:
+               if list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path+'/ft_run'))) != []:
+                   print(' '.join(list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path + '/ft_run')))) + '/\n\n\n\n\n\nFOUND\n\n\n')
+
+               if list(set(os.listdir(path+'/ft_run')) - set(os.listdir(path+'/ft_reference'))) != []:
+                   print(' '.join(list(set(os.listdir(path+'/ft_run')) - set(os.listdir(path + '/ft_reference')))) + '/\n\n\n\n\n\nFOUND\n\n\n')        
 
     for i in os.listdir(path):
         if os.path.isdir(path+'/'+i):
