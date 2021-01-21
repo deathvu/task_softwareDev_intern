@@ -20,16 +20,31 @@ def traversal(path, level=1):
         else:
             if os.listdir(path+'/ft_reference') != os.listdir(path+'/ft_run'):
                # if len(list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path+'/ft_run')))) != 0:
-               if list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path+'/ft_run'))) != []:
-                   print(' '.join(list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path + '/ft_run')))) + '/\n\n\n\n\n\nFOUND\n\n\n')
+               ref_diff_list = list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path+'/ft_run')))
+               run_diff_list = list(set(os.listdir(path+'/ft_run')) - set(os.listdir(path+'/ft_reference'))) 
+               separator = ", "
+               
+               if ref_diff_list != []:
+                   print("In ft_run there are missing files present in ft_reference:", separator.join(['\''+ x+os.path.join('/'+str(''.join(os.listdir(path+'/ft_reference/'+x))))+'\'' for x in ref_diff_list]))
 
-               if list(set(os.listdir(path+'/ft_run')) - set(os.listdir(path+'/ft_reference'))) != []:
-                   print(' '.join(list(set(os.listdir(path+'/ft_run')) - set(os.listdir(path + '/ft_reference')))) + '/\n\n\n\n\n\nFOUND\n\n\n')        
+               if run_diff_list != []:
+                   print("In ft_run there are extra files not present in ft_reference:", separator.join(['\''+ x+os.path.join('/'+str(''.join(os.listdir(path+'/ft_run/'+x))))+'\'' for x in run_diff_list]))
+
+               print('ref: ', ref_diff_list)
+               print('run:', run_diff_list)
+               print('\n\n\n\n\n\nFOUND\n\n\n\n')
+
+
+#                   print(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path+'/ft_run')))
+#                   print(' '.join(list(set(os.listdir(path+'/ft_reference')) - set(os.listdir(path + '/ft_run')))) + '/\n\n\n\n\n\nFOUND\n\n\n')
+
+#               if list(set(os.listdir(path+'/ft_run')) - set(os.listdir(path+'/ft_reference'))) != []:
+#                   print(' '.join(list(set(os.listdir(path+'/ft_run')) - set(os.listdir(path + '/ft_reference')))) + '/\n\n\n\n\n\nFOUND\n\n\n')        
 
     for i in os.listdir(path):
         if os.path.isdir(path+'/'+i):
             print("spuskaemsya", path+'/'+i)
             traversal(path+'/'+i, level+1)
-            print("vozvrat v", path)
+#            print("vozvrat v", path)
 
 traversal('../logs/')
