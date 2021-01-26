@@ -1,4 +1,4 @@
-Library used : # os, re, decimal
+Libraries used : os, re, decimal
 Compatible only on GNU/Linux (code is GNU/Linux directory tree dependent)
 
 Run program :
