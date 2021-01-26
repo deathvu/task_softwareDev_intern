@@ -1,5 +1,5 @@
-Libraries used : os, re, decimal \n
-Compatible only on GNU/Linux (code is GNU/Linux directory tree dependent)
+* Libraries used : os, re, decimal
+* Compatible only on GNU/Linux (code is GNU/Linux directory tree dependent)
 
-Run program :
+# Run program :
 ./python3 solution.py
