@@ -6,7 +6,7 @@ from decimal import Decimal
 _REGEX = re.compile("[-+]?\d*\.\d+|\d+") 
 
 
-def values_mem_peak(path, pattern, split_sym):
+def read_floats_values(path, pattern, split_sym):
     values = []
     with open(path, "r") as rfile:
         lines = rfile.readlines()
@@ -64,10 +64,10 @@ def traversal(path, level=1):
 
                                 # taking max 'Memory Working Set Peak' & 'Total' bricks
                                 # from files with diff between them
-                                ft_run_max_mem_peak = max(values_mem_peak(root+'/'+x, "Memory Working Set Peak", ','))
-                                ft_reference_max_mem_peak = max(values_mem_peak((root+'/'+x).replace('ft_run', 'ft_reference'), "Memory Working Set Peak", ','))
-                                ft_run_bricks_total = values_mem_peak(root+'/'+x, "MESH::Bricks: Total=", ' ')
-                                ft_reference_bricks_total = values_mem_peak((root+'/'+x).replace('ft_run', 'ft_reference'), "MESH::Bricks: Total=", ' ')
+                                ft_run_max_mem_peak = max(read_floats_values(root+'/'+x, "Memory Working Set Peak", ','))
+                                ft_reference_max_mem_peak = max(read_floats_values((root+'/'+x).replace('ft_run', 'ft_reference'), "Memory Working Set Peak", ','))
+                                ft_run_bricks_total = read_floats_values(root+'/'+x, "MESH::Bricks: Total=", ' ')
+                                ft_reference_bricks_total = read_floats_values((root+'/'+x).replace('ft_run', 'ft_reference'), "MESH::Bricks: Total=", ' ')
                                 rel_diff_mem_peak = Decimal(max(ft_run_max_mem_peak, ft_reference_max_mem_peak)) /\
                                         Decimal(min(ft_run_max_mem_peak, ft_reference_max_mem_peak))
                                 rel_diff_bricks_total = abs(Decimal(ft_run_bricks_total[-1]) - Decimal(ft_reference_bricks_total[-1])) / Decimal(ft_reference_bricks_total[-1]) 
