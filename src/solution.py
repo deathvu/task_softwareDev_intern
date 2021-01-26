@@ -102,4 +102,6 @@ def main():
     traversal('../logs')
     make_report('../logs/')
 
+if __name__ == '__main__':
+    main()
 
